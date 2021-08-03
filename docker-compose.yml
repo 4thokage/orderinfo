@@ -7,3 +7,16 @@ services:
     ports:
       - "9901:9901"
       - "8080:8080"
+  server:
+    image: golang:1.16
+    volumes:
+      - .:/go/src/orderinfo
+    ports:
+      - "50051:50051"
+    working_dir: /go/src/orderinfo/server
+    command: >
+      sh -c "go env -w GO111MODULE=auto &&
+             go get -t google.golang.org/grpc &&
+             go get -t github.com/4thokage/orderinfo/protos &&
+             go build -o server main.go thor.go &&
+             ./server"

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"../protos"
 	"context"
 	"flag"
 	"fmt"
+	"github.com/4thokage/orderinfo/protos"
 	"google.golang.org/grpc"
 	"log"
 	"net"

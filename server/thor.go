@@ -1,7 +1,7 @@
 package main
 
 import (
-	"../protos"
+	"github.com/4thokage/orderinfo/protos"
 	"log"
 	"math/rand"
 	"time"

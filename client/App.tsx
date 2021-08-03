@@ -1,4 +1,3 @@
-import {StatusBar} from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {OrderWatcherClient} from "./_proto/orderWatcher_pb_service";
@@ -12,16 +11,12 @@ export default function App() {
 
 
     useEffect(() => {
-
-
-
         (() => {
             const customer = new Request()
             customer.setId(1)
             const orderStream = grpcClient.subscribe(customer);
             orderStream.on("data", (chunk) => {
                 const msg = chunk.toObject();
-                console.log(msg);
                 setMessages((prev) => [...prev, msg]);
             });
         })();
@@ -29,11 +24,9 @@ export default function App() {
 
     }, []);
 
-
     return (
         <View style={styles.container}>
-            <Text>Open up App.tsx to start working on your app!</Text>
-            <StatusBar style="auto"/>
+            <Text>{messages.map(txt => <p key={txt.order}>{txt.itemsList[0]}</p>)}</Text>
         </View>
     );
 }
