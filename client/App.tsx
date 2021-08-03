@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet,  View} from 'react-native';
 import {OrderWatcherClient} from "./_proto/orderWatcher_pb_service";
 import {Request, Response} from "./_proto/orderWatcher_pb";
+import { Card, ListItem, Button, Icon } from 'react-native-elements'
 
 export default function App() {
     const [messages, setMessages] = useState<Array<Response.AsObject>>([]);
@@ -26,7 +27,22 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            <Text>{messages.map(txt => <p key={txt.order}>{txt.itemsList[0]}</p>)}</Text>
+            {messages.map(order =>
+                <Card key={order.order}>
+                    <Card.Title>{order.eta}</Card.Title>
+                    <Card.Divider/>
+                    {order.itemsList.map((u, i) => {
+                        return (
+                            <View key={i}>
+                                <p>{u}</p>
+                            </View>
+                        );
+                    })
+                    }
+                </Card>
+
+
+            )}
         </View>
     );
 }
